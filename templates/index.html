@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Dogs breed</title>
+    </head>
+
+    <body>
+        {% if error %}
+            <p class=error><center><strong>Пожалуйста загрузите картинку</strong></center>
+        {% endif %}
+
+        <div class="container">
+            <form action="/" method=POST enctype="multipart/form-data">
+                <input type="file" name="file" />
+               <input type="submit" value="Узнать породу" />
+            </form>
+        </div>
+
+        {% if result %}
+            <img width="512" height="512" src='"+img_path+"'/>
+
+        {% endif %}
+
+    </body>
+</html>

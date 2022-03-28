@@ -1,15 +1,15 @@
-TRUE_NAME = {
-    "n02093754": 'Australian terrier',
-    "n02089973": 'Border terrier',
-    "n02099601": 'Samoyed',
-    "n02087394": 'Beagle',
-    "n02105641": 'Shih-Tzu',
-    "n02096294": 'English foxhound',
-    "n02088364": 'Rhodesian ridgeback',
-    "n02115641": 'Dingo',
-    "n02111889": 'Golden retriever',
-    "n02086240": 'Old English sheepdog'
-}
+TRUE_NAME = dict(
+    n02086240='Shih-Tzu',
+    n02087394='Rhodesian ridgeback',
+    n02088364='Beagle',
+    n02089973='English foxhound',
+    n02093754='Australian terrier',
+    n02096294='Border terrier',
+    n02099601='Golden retriever',
+    n02105641='Old English sheepdog',
+    n02111889='Samoyed',
+    n02115641='Dingo'
+)
 
 TRAIN_DATA = "imagewoof2/train"
 VAL_DATA = "imagewoof2/val"

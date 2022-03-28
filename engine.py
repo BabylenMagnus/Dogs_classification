@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from torchvision.models import resnet152
+from torchvision.models import resnet101
 
 from config import *
 import os
@@ -36,7 +36,7 @@ def train_classification(
             optimizer.step()
 
             total_loss += loss.item()
-            total_accuracy += sum(output.argmax(1) == classes).item()
+            total_accuracy += sum(output.argmax(1) == classes).item() / len(classes)
 
             if not batch_idx % noti_rate:
                 print(
@@ -61,7 +61,7 @@ def train_classification(
 
                 output = model(data)
 
-                test_accuracy += sum(output.argmax(1) == classes).item()
+                test_accuracy += sum(output.argmax(1) == classes).item() / len(classes)
 
         test_accuracy /= len(valid_loader)
         test_accuracies.append(test_accuracy)
@@ -91,17 +91,17 @@ def plot_result(train_losses, train_accuracies, test_accuracies):
     plt.show()
 
 
-def get_model():
+def get_model(device='cuda'):
     weights = sorted(os.listdir(WEIGHT_PATH))
 
     if weights:
-        return torch.load(WEIGHT_PATH + weights[-1])
+        return torch.load(WEIGHT_PATH + weights[-1], map_location=device)
 
-    model = resnet152(pretrained=True)
+    model = resnet101(pretrained=True)
     model.fc = nn.Sequential(
         nn.Linear(2048, 128),
         nn.ReLU(inplace=True),
         nn.Linear(128, 10)
     )
 
-    return model
+    return model.to(device)
