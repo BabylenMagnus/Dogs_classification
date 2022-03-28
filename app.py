@@ -15,7 +15,8 @@ app.config['UPLOAD_FOLDER'] = 'static/'
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 model = get_model(device)
-model.eval()
+
+fmt_str = '{:.1%}'
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -32,13 +33,16 @@ def index():
         img = Image.open(file.stream)
         img = test_augmentation(img).to(device)
         out = model(img[None, :])[0].to('cpu')
-        print(out / sum(out), sum(out / sum(out)))
         out -= out.min()
-        print(out)
         out /= sum(out)
-        print(out, sum(out))
+        out = out.softmax(0).tolist()
 
-        return render_template('index.html', result=out, img_path=img_path)
+        answer = []
+        for i in sorted(out, reverse=True)[:3]:
+            class_name = model.classes[out.index(i)].replace('_', ' ').title()
+            answer.append(f"{class_name} - {fmt_str.format(i)}")
+
+        return render_template('index.html', result=answer, img_path=img_path)
 
 
 if __name__ == '__main__':
