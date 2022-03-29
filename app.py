@@ -33,6 +33,7 @@ def index():
         img = Image.open(file.stream)
         img = test_augmentation(img).to(device)
         out = model(img[None, :])[0].to('cpu')
+        out[out < 0] = 0
         out -= out.min()
         out /= sum(out)
         out = out.softmax(0).tolist()
