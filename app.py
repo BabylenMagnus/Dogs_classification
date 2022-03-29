@@ -10,6 +10,9 @@ from utils import test_augmentation
 
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg']
 
+if not os.path.exists('static'):
+    os.makedirs('static')
+
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/'
 
