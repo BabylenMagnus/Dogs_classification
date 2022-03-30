@@ -17,4 +17,6 @@ VAL_DATA = "imagewoof2/val"
 IMAGE_SIZE = 512
 BATCH_SIZE = 6
 
+NUM_CLASSES = 10
+
 WEIGHT_PATH = "weights/"
