@@ -41,3 +41,8 @@ then run:
 ```
 python telegram_bot.py
 ```
+
+## Problems
+
+> bad architecture was chosen
+> not enough epoch to training
