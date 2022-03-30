@@ -1,6 +1,4 @@
 import torch
-import torch.nn as nn
-from torchvision.models import resnet101
 
 from config import *
 import os
@@ -96,8 +94,8 @@ def plot_result(train_losses, train_accuracies, test_accuracies):
 def get_model(device='cuda'):
     weights = sorted(os.listdir(WEIGHT_PATH))
 
-    # if weights:
-    #     return torch.load(WEIGHT_PATH + weights[-1], map_location=device)
+    if weights:
+        return torch.load(WEIGHT_PATH + weights[-1], map_location=device)
 
     model = ResNet()
 

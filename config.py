@@ -14,8 +14,8 @@ TRUE_NAME = dict(
 TRAIN_DATA = "imagewoof2/train"
 VAL_DATA = "imagewoof2/val"
 
-IMAGE_SIZE = 512
-BATCH_SIZE = 6
+IMAGE_SIZE = 256
+BATCH_SIZE = 11
 
 NUM_CLASSES = 10
 

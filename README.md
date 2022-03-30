@@ -1,13 +1,28 @@
 # Dogs Breed classification 
 
 ## Example work 
+
+### 1st Download weight
+
+```
+./download_weights.sh
+```
+
 ### Simple flask app
 <img src="images/example 1.png">
 
 Run:
-```
+```bash
 python app.py
 ```
+
+Or:
+```bash
+docker build -t dogs-breed  .                                                                                              ✔ 
+docker run -it -d -p 5000:5000 dogs-breed
+```
+
+then go "http://localhost:5000/'
 
 ### Simple telegram bot
 
@@ -26,6 +41,3 @@ then run:
 ```
 python telegram_bot.py
 ```
-
-## Problems
-docker don't host flask app, I continue try

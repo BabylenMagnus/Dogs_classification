@@ -18,6 +18,7 @@ app.config['UPLOAD_FOLDER'] = 'static/'
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 model = get_model(device)
+model.eval()
 
 fmt_str = '{:.1%}'
 

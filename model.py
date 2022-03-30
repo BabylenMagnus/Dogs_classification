@@ -15,13 +15,13 @@ class Bottleneck(nn.Module):
             norm_layer = nn.BatchNorm2d
         width = int(planes)
         # Both self.conv2 and self.downsample layers downsample the input when stride != 1
-        self.conv1 = nn.Conv2d(inplanes, width, kernel_size=1, stride=stride, bias=False)
+        self.conv1 = nn.Conv2d(inplanes, width, kernel_size=1, bias=False)
         self.bn1 = norm_layer(width)
         self.conv2 = nn.Conv2d(
             width, width, kernel_size=3, stride=stride, padding=dilation, bias=False, dilation=dilation
         )
         self.bn2 = norm_layer(width)
-        self.conv3 = nn.Conv2d(width, planes * expansion, kernel_size=1, stride=stride, bias=False)
+        self.conv3 = nn.Conv2d(width, planes * expansion, kernel_size=1, bias=False)
         self.bn3 = norm_layer(planes * expansion)
         self.relu = nn.ReLU(inplace=True)
         self.downsample = downsample
@@ -69,11 +69,11 @@ class ResNet(nn.Module):
         )
 
         self.layer1 = self.make_layer(64, 4)
-        self.layer2 = self.make_layer(128, 9, stride=2)
-        self.layer3 = self.make_layer(256, 8, stride=2)
+        self.layer2 = self.make_layer(128, 15, stride=2)
+        self.layer3 = self.make_layer(256, 15, stride=2)
 
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
-        self.fc = nn.Linear(512 * expansion, NUM_CLASSES)
+        self.fc = nn.Linear(256 * expansion, NUM_CLASSES)
 
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
@@ -91,7 +91,7 @@ class ResNet(nn.Module):
                 nn.BatchNorm2d(out_ch * expansion),
             )
 
-        layers = [Bottleneck(self.inplanes, out_ch, stride, downsample)]
+        layers = [Bottleneck(self.inplanes, out_ch, stride=stride, downsample=downsample)]
         self.inplanes = out_ch * expansion
         for _ in range(1, blocks):
             layers.append(Bottleneck(self.inplanes, out_ch))

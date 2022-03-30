@@ -5,6 +5,7 @@ COPY engine.py ./engine.py
 COPY utils.py ./utils.py
 COPY config.py ./config.py
 COPY templates/index.html ./templates/index.html
+COPY weights ./weights/
 
 RUN apt-get update && apt-get -y install python3-pip
 
